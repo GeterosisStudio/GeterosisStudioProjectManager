@@ -8,25 +8,37 @@ class FolderTree(QTreeWidget):
         super(FolderTree, self).__init__()
         self.path = path
         self.setHeaderLabels(['Name'])
-        self.populate()
+        self.dirdata = self.create_dir_data(self.path)
+        self.create_tree_widget(self, self.dirdata)
 
-    def populate(self):
-        self.clear()
-        for name in os.listdir(self.path):
-            path = os.path.join(self.path, name)
-            if os.path.isdir(path):
-                item = QTreeWidgetItem([name, ''])
-                self.addTopLevelItem(item)
-                self.populate_folder(item, path)
+    def create_tree_widget(self, parent, dir_data):
+        for key, value in dir_data.items():
+            item = QTreeWidgetItem(parent, [key])
+            if isinstance(value, dict):
+                self.create_tree_widget(item, value)
+            elif isinstance(value, list):
+                for item_value in value:
+                    QTreeWidgetItem(item, [str(item_value)])
+            else:
+                QTreeWidgetItem(item, [str(value)])
 
+    def create_dir_data(self,dir_path):
+        return {
+            'assets': [i for i in os.listdir(os.path.join(dir_path, 'assets')) if
+                       os.path.isdir(os.path.join(dir_path, 'assets', i))],
+            'animation': {
 
-    def populate_folder(self, parent, path):
-        for name in os.listdir(path):
-            child_path = os.path.join(path, name)
-            if os.path.isdir(child_path):
-                child_item = QTreeWidgetItem([name, ''])
-                parent.addChild(child_item)
-                self.populate_folder(child_item, child_path)
+                'scenes': [i for i in os.listdir(os.path.join(dir_path, 'animation', 'scenes')) if
+                           os.path.isdir(os.path.join(dir_path, 'animation', 'scenes', i))],
+                'movement': [i for i in os.listdir(os.path.join(dir_path, 'animation', 'movement')) if
+                             os.path.isdir(os.path.join(dir_path, 'animation', 'movement', i))],
+            },
+            'logicmaps': {
+
+                'scenes': list(os.listdir(os.path.join(dir_path, 'logicmaps', 'scenes'))),
+                'gameplay': list(os.listdir(os.path.join(dir_path, 'logicmaps', 'gameplay')))
+            }
+        }
 
     def openFolder(self, item, column):
         path = self.itemPath(item)
@@ -45,9 +57,10 @@ class FolderTree(QTreeWidget):
             path.insert(0, item.text(0))
         return os.path.join(self.path, *path)
 
+
 if __name__ == '__main__':
     app = QApplication([])
-    tree = FolderTree(r"E:\Projects\ILLUSION_1\animation")
+    tree = FolderTree("E:/Projects/ILLUSION_1")
     tree.itemDoubleClicked.connect(tree.openFolder)
     tree.itemClicked.connect(tree.show_subelems)
     tree.show()
