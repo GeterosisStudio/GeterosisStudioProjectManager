@@ -41,12 +41,6 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2"/>
-    </item>
-    <item>
-     <layout class="QVBoxLayout" name="verticalLayout"/>
-    </item>
-    <item>
      <widget class="QTreeWidget" name="treeWidget">
       <property name="minimumSize">
        <size>

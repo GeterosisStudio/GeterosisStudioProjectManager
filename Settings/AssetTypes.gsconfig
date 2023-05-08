@@ -1,0 +1,23 @@
+{
+    "movescene": {
+        "path": "animation/movement/"
+    }, 
+    "map": {
+        "path": "assets/maps/"
+    }, 
+    "set": {
+        "path": "assets/sets/"
+    }, 
+    "animscene": {
+        "path": "animation/scenes/"
+    }, 
+    "logicep": {
+        "path": "logicmaps/scenes/"
+    }, 
+    "prop": {
+        "path": "assets/props/"
+    }, 
+    "char": {
+        "path": "assets/chars/"
+    }
+}
