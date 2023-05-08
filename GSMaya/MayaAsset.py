@@ -1,29 +1,29 @@
 import maya.cmds as cmds
 import os
 import json
+from GSMain import Log
 
 
 class MayaAsset(object):
 
-    def __init__(self, project_path, asset_type, asset_name):
-
-        with open('../Settings/AssetTypes.gsconfig') as asset_type_config_file:
-            asset_type_config = json.load(asset_type_config_file)
-            if asset_type in asset_type_config:
-                self.asset_local_path = asset_type_config[asset_type]["path"]
-            else:
-                raise ("Asset type {} not defined.".format(asset_type))
-        self.project_path = project_path
-        self.asset_type = asset_type
-        self.asset_name = asset_name
-        self.asset_full_path = os.path.join(self.project_path, self.asset_local_path, self.asset_name)
+    def __init__(self):
+        self.asset_full_path = self.get_file_dir()
         if os.path.isfile(os.path.join(self.asset_full_path, "AssetConfig.gsconfig")):
             with open(os.path.join(self.asset_full_path, "AssetConfig.gsconfig")) as asset_config_file:
                 self.asset_config = json.load(asset_config_file)
         else:
-            self.create_asset_config()
-            with open(os.path.join(self.asset_full_path, "AssetConfig.gsconfig")) as asset_config_file:
-                self.asset_config = json.load(asset_config_file)
+            raise Log.warning("Scene incorrect: AssetConfig.gsconfig not defined.")
+
+        self.asset_type = self.asset_config["assettype"]
+
+        with open('../Settings/AssetTypes.gsconfig') as asset_type_config_file:
+            asset_type_config = json.load(asset_type_config_file)
+            if self.asset_type in asset_type_config:
+                self.asset_local_path = asset_type_config[self.asset_type]["path"]
+            else:
+                raise Log.warning("Asset type {} not defined.".format(self.asset_type))
+        self.project_path = self.asset_full_path.split(self.asset_local_path)[0]
+        self.asset_name = self.asset_config["assetname"]
 
     def open_asset(self):
         cmds.file("", o=True)
@@ -96,13 +96,10 @@ class MayaAsset(object):
         cmds.file(save=True)
 
     def get_file_dir(self):
-        return cmds.file(q=True, sceneName=True).replace("/work", "")
-
-    def export_config(self):
-        pass
+        return cmds.file(q=True, sceneName=True).split("/work")[0] + "/"
 
     def get_asset_type(self):
-        pass
+        return self.asset_type
 
-    def create_asset_config(self):
-        pass
+    def get_asset_name(self):
+        return self.asset_name

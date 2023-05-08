@@ -1,23 +1,30 @@
 {
     "movescene": {
         "path": "animation/movement/"
+        "versions": false
     }, 
     "map": {
         "path": "assets/maps/"
+        "versions": true
     }, 
     "set": {
         "path": "assets/sets/"
+        "versions": true
     }, 
     "animscene": {
         "path": "animation/scenes/"
+        "versions": false
     }, 
     "logicep": {
         "path": "logicmaps/scenes/"
+        "versions": false
     }, 
     "prop": {
         "path": "assets/props/"
+        "versions": true
     }, 
     "char": {
         "path": "assets/chars/"
+        "versions": true
     }
 }
