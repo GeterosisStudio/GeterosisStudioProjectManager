@@ -270,3 +270,99 @@ class AnimScene(MayaAsset):
         self.create_export_config()
         print("SCENE FINAL COMPLETE")
         return True
+
+    def export_anm_from_scene(parametrs):
+
+        def get_all_children_with_anim(selected_objects):
+            all_objects = []
+            for obj in selected_objects:
+                all_objects.append(obj)
+                obj_elements = cmds.listRelatives(obj, allDescendents=True, f=True)
+                for element in obj_elements:
+                    all_objects.append(element)
+                    anim_nodes = cmds.listConnections(element, type='animCurve')
+                    if anim_nodes:
+                        all_objects.extend(anim_nodes)
+            return all_objects
+
+        source_scene_path = parametrs[0]
+        target_scene_path = parametrs[1]
+        char_valid_names = parametrs[2]["name"]
+        start_time = parametrs[3]
+        end_time = parametrs[4]
+
+        cmds.file(source_scene_path, o=True, f=True)
+        source_active_char = None
+
+        if cmds.objExists('chars_grp'):
+            source_chars = cmds.listRelatives('chars_grp', c=True)
+            for char in source_chars:
+                for valid in char_valid_names:
+                    if valid in char:
+                        source_active_char = char
+            else:
+                # do reference node query
+                pass
+        '''reload'''
+        root_node = cmds.ls(source_active_char, rn=True)
+        r_node = cmds.referenceQuery(root_node, rfn=True)
+        ref = cmds.referenceQuery(r_node, f=True)
+        this_char_file = cmds.referenceQuery(r_node, filename=True, shortName=True)
+        ref_new = str(ref.replace(this_char_file, parametrs[2]["file"]))
+        tr_out = cmds.file(ref_new, loadReference=r_node)
+        '''vsrs'''
+        source_active_char_root = ":" + source_active_char.split(":")[-1]
+        namespace = source_active_char.replace(source_active_char_root, "")
+        general_ct = namespace + ":" + parametrs[2]["ct"]
+        bake_set = cmds.sets(namespace + ":" + "OUT", q=True)
+        try:
+            get_cam = cmds.listRelatives("cameras_grp")
+        except:
+            get_cam = cmds.ls(type="camera", transforms=True)
+            try:
+                get_cam.remove(u'perspShape')
+                get_cam.remove(u'sideShape')
+                get_cam.remove(u'topShape')
+                get_cam.remove(u'frontShape')
+            except:
+                pass
+        bake_objs = namespace + ":" + "TransferRig:root"
+        transfer_exp_name = "source"
+        '''vsrs'''
+        loc_zero = cmds.spaceLocator()
+        group = cmds.group(loc_zero)
+        cmds.parentConstraint(general_ct, loc_zero, weight=1)
+        cmds.pointConstraint(get_cam, group, weight=1)
+        bake_set = bake_set + loc_zero
+        cmds.bakeResults(bake_set, t=(start_time, end_time))
+        cmds.delete(loc_zero[0] + "_parentConstraint1")
+        cmds.parentConstraint(loc_zero, general_ct, weight=1)
+        cmds.cutKey(get_cam)
+        cam_attrs = [".translateX", ".translateY", ".translateZ", ".rotateX", ".rotateY", ".rotateZ", ]
+        for attr in cam_attrs:
+            if cmds.getAttr(get_cam[0] + str(attr), l=True):
+                try:
+                    cmds.setAttr(get_cam[0] + str(attr), l=False)
+                    cmds.setAttr(get_cam[0] + str(attr), 0)
+                except:
+                    pass
+
+        transfer_exp = cmds.duplicate(bake_objs, name=transfer_exp_name)
+
+        bake_objs_all = cmds.listRelatives(bake_objs, allDescendents=True, f=True)
+        transfer_exp_all = cmds.listRelatives(transfer_exp, allDescendents=True, f=True)
+
+        for i in range(len(bake_objs_all)):
+            try:
+                cmds.copyKey(bake_objs_all[i], time=(
+                cmds.playbackOptions(q=True, minTime=True), cmds.playbackOptions(q=True, maxTime=True)))
+                cmds.pasteKey(transfer_exp_all[i])
+            except:
+                pass
+
+        cmds.parent(transfer_exp[0], w=True)
+        cmds.select(get_all_children_with_anim(cmds.ls(transfer_exp[0])))
+        target_scene_dir = target_scene_path.replace(target_scene_path.split("/")[-1], "")
+        if not os.path.exists(target_scene_dir):
+            os.makedirs(target_scene_dir)
+        cmds.file(target_scene_path, force=True, options="v=0;", typ="mayaAscii", es=True)

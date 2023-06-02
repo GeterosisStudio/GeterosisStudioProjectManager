@@ -1,13 +1,14 @@
 import xml.etree.ElementTree as ET
 import json
 import Log
+import math
+import pprint
 
-
-project_path = None
-episode_name = None
-scene_name = None
-between_name = None
-xml_file = r"{0}animation\scenes\{1}\{2}\target\{3}.xml".format(project_path, episode_name, scene_name, between_name)
+project_path = "E:/Projects/ILLUSION_1/"
+episode_name = "e0010"
+scene_name = "e0010s0030d0010v0030"
+between_name = "Mom.xml"
+xml_file = r"{0}animation/scenes/{1}/{2}/target/{3}".format(project_path, episode_name, scene_name, between_name)
 tree = ET.parse(xml_file)
 root = tree.getroot()
 
@@ -16,8 +17,6 @@ def xml_to_dict(element):
     result = {}
     if element.attrib:
         result.update(element.attrib)
-    if element.text:
-        result['_text'] = element.text
     for child in element:
         child_result = xml_to_dict(child)
         if child.tag in result:
@@ -27,10 +26,13 @@ def xml_to_dict(element):
                 result[child.tag] = [result[child.tag], child_result]
         else:
             result[child.tag] = child_result
-    return result
+    if result == {}:
+        return element.text
+    elif isinstance(result, dict) and len(result.keys()) == 1 and '_text' in result:
+        return result['_text']
+    else:
+        return result
 
-
-my_dict = xml_to_dict(root)["sequence"]["media"]["video"]["track"]
 
 with open(r'F:\bufer\test.json', 'w') as f:
     json.dump(xml_to_dict(root), f, indent=4)
@@ -42,7 +44,7 @@ def return_valid_tracks(full_list):
         if "clipitem" in track:
             valid_tracks.append(track)
             for shot in track["clipitem"]:
-                if shot["file"]["name"]['_text'] == "Graphic":
+                if shot["file"]["name"] == "Graphic":
                     continue
                 else:
                     break
@@ -51,13 +53,13 @@ def return_valid_tracks(full_list):
 
 def dict_is_names(track):
     for shot in track["clipitem"]:
-        if shot["file"]["name"]['_text'] == "Graphic":
+        if shot["file"]["name"] == "Graphic":
             continue
         else:
             Log.info("This shot is not title:{}.".format(track["clipitem"].index(shot)))
             return False
 
-    library = None
+    library = r"C:\Users\AlexLip\Documents\GeterosisProjectManager\Settings\Libraries.json"
     with open(library) as f:
         source_char_variable_list = json.load(f)
 
@@ -69,12 +71,12 @@ def dict_is_names(track):
         lib_char_names.append(source_char_variable_list["chars"][i]["name"])
 
     for shot in track["clipitem"]:
-        all_char_names.append(shot["file"]["filter"]["effect"]["name"]['_text'])
+        all_char_names.append(shot["file"]["filter"]["effect"]["name"])
 
     for shot in track["clipitem"]:
         for i in range(len(lib_char_names)):
-            if shot["file"]["filter"]["effect"]["name"]['_text'] in lib_char_names[i]:
-                valid_char_names.append(shot["file"]["filter"]["effect"]["name"]['_text'])
+            if shot["file"]["filter"]["effect"]["name"] in lib_char_names[i]:
+                valid_char_names.append(shot["file"]["filter"]["effect"]["name"])
                 break
         continue
 
@@ -92,21 +94,29 @@ def dict_is_names(track):
 
 def dict_is_shots(dict):
     for shot in dict["clipitem"]:
-        if shot["file"]["name"]['_text'] != "Graphic":
+        if shot["file"]["name"] != "Graphic":
             pass
         else:
             return False
     return True
 
 
+my_dict = xml_to_dict(root)["sequence"]["media"]["video"]["track"]
 my_dict = return_valid_tracks(my_dict)
 
-scene_name = my_dict[0]["clipitem"][0]["file"]['pathurl']['_text'].split("/")[-1]
-source_start = int(my_dict[0]["clipitem"][0]["start"]['_text'])
-source_end = int(my_dict[0]["clipitem"][0]["end"]['_text'])
-target_start = int(my_dict[0]["clipitem"][0]["in"]['_text'])
-target_end = int(my_dict[0]["clipitem"][0]["out"]['_text'])
+target_frame_rate = float(xml_to_dict(root)["sequence"]["rate"]['timebase'])
+count = 2
+scene_name = my_dict[0]["clipitem"][count]["file"]['pathurl'].split("/")[-1]
+source_frame_rate = float(my_dict[0]["clipitem"][count]["file"]['rate']['timebase'])
+normal_frame_rate = float(target_frame_rate / source_frame_rate)
+source_frame_speed = float(my_dict[0]["clipitem"][count]["filter"]["effect"]["parameter"][1]['value'])
 
-# pprint.pprint(my_dict[0]["clipitem"][0]["start"]['_text'])
-print(dict_is_names(my_dict[1]))
-print(dict_is_shots(my_dict[0]))
+source_start = int(math.ceil((int(my_dict[0]["clipitem"][count]["in"]) + 1) / normal_frame_rate))
+source_end = int(math.ceil(float(my_dict[0]["clipitem"][count]["out"]) / normal_frame_rate) * source_frame_speed / 100)
+
+target_start = int(my_dict[0]["clipitem"][count]["start"])
+target_end = int(my_dict[0]["clipitem"][count]["end"])
+
+
+source_frame_speed = float(my_dict[0]["clipitem"][count]["filter"]["effect"]["parameter"][1]['value'])
+print(scene_name, source_start, source_end, target_start, target_end, source_frame_rate, target_frame_rate, source_frame_speed)
