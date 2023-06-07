@@ -1,17 +1,18 @@
 import os
 import json
 import hashlib
-
+import getpass
 
 class Config:
 
     def __init__(self):
-        with open('../Settings/Config.json') as f:
+        this_path = os.path.join(os.path.abspath(__file__).replace("\\", "/").rsplit("/", 1)[0])
+        with open(this_path.replace("/GSMain", "") + '/Settings/Config.json') as f:
             self.core_config = json.load(f)
 
         self.__custom_settings = self.core_config["settings"]["custom settings"]
         if not self.__custom_settings:
-            self.user_name = os.getlogin()
+            self.user_name = getpass.getuser()
             self.__settings_path = 'C:/Users/{}/Documents/{}'.format(self.user_name, "GeterosisProjectManager/")
         else:
             self.__settings_path = __file__.replace("GSMain\Config.py", "default/")
@@ -95,6 +96,43 @@ class Config:
                 returned[proj] = self.__projects_config[proj]
         return returned
 
+    def create_asset_config(self, **options):
+        """
 
-test = Config()
-print(test.get_config_path())
+        :param options:
+            asset_name:
+            asset_root_path:
+            asset_type:
+            project_name:
+
+        :return:
+        """
+        asset_name = options.get("asset_name")
+        asset_root_path = options.get("asset_root_path")
+        asset_type = options.get("asset_type")
+        project_name = options.get("project_name")
+
+        config = {"asset_name": asset_name,
+                  "asset_type": asset_type,
+                  "project_name":project_name
+                  }
+
+        config_full_path = asset_root_path + asset_name + ".gsconfig"
+        with open(config_full_path, 'w') as f:
+            json.dump(config, f, indent=4)
+        return config_full_path
+
+    def get_asset_config(self, asset_path):
+        if os.path.isfile(asset_path):
+            with open(asset_path) as f:
+                return json.load(f)
+        elif os.path.exists(asset_path):
+            for config in os.listdir(asset_path):
+                if ".gsconfig" in config:
+                    with open(config) as f:
+                        return json.load(f)
+        return False
+
+if __name__ == "__main__":
+    test = Config()
+    print(test.get_config_path())
