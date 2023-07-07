@@ -3,7 +3,6 @@
 import maya.cmds as cmds
 import time
 
-
 levels_grp = "levels_grp"
 root_grp = "root"
 project_path = None

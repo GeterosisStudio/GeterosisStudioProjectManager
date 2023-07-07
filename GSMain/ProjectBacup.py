@@ -2,6 +2,8 @@
 import os
 import shutil
 import Log
+import json
+
 
 exeptions = {}
 def delete_old(source_dir, target_dir, root_target_dir, old_dir):
@@ -29,8 +31,12 @@ def delete_old(source_dir, target_dir, root_target_dir, old_dir):
                 os.remove(target_obj)
 
         elif os.path.isdir(target_obj):
-            Log.info("INTO: {}".format(target_obj))
-            delete_old(source_path, target_obj, root_target_dir, old_dir)
+            Log.info("INTO (DELETE OLD): {}".format(target_obj))
+            try:
+                delete_old(source_path, target_obj, root_target_dir, old_dir)
+            except:
+                Log.warning("DELETE OLD FAILED: {0} to {1}".format(source_dir, target_obj))
+                exeptions[source_dir] = (target_obj)
 
 
 def copy_dirs(source_dir, target_dir):
@@ -51,9 +57,15 @@ def copy_dirs(source_dir, target_dir):
 
             elif os.path.isdir(source_obj) and os.path.exists(target_obj):
                 Log.info("Do sync: {0}".format(source_obj))
-                copy_dirs(source_obj, target_obj)
+                try:
+                    copy_dirs(source_obj, target_obj)
+                except:
+                    Log.warning("BACKUP FAILED: {0} to {1}".format(source_obj, target_obj))
+                    exeptions[source_obj] = (target_obj)
 
-            else:
+
+
+        else:
                 if os.path.isfile(source_obj) and not os.path.exists(target_obj):
                     Log.info("Coping: {0} to {1}".format(source_obj, target_obj))
                     shutil.copy(source_obj, target_obj)
@@ -78,7 +90,9 @@ def project_backup(source_dir, target_dir):
     delete_old(source_dir, target_dir, root_target_dir, old_dir)
     Log.info("BACKUP COMPLETE: {} TO {}.".format(source_dir, target_dir))
     if exeptions != {}:
+        with open(source_dir + "/Logs/Bacup.json", 'w') as f:
+            json.dump(exeptions, f)
         Log.info("BACKUP FAILEDS: {}".format(exeptions))
 
 
-
+project_backup("E:/Projects", "Y:/MUSOR/Projects")

@@ -271,7 +271,7 @@ class AnimScene(MayaAsset):
         print("SCENE FINAL COMPLETE")
         return True
 
-    def export_anm_from_scene(parametrs):
+    def export_anm_from_scene(self, parametrs):
 
         def get_all_children_with_anim(selected_objects):
             all_objects = []
