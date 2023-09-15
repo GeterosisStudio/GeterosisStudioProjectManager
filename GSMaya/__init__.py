@@ -1,0 +1,1 @@
+GSPM_MAYA_SCENE_CLS = None

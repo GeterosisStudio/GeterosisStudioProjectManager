@@ -90,6 +90,8 @@ def project_backup(source_dir, target_dir):
     delete_old(source_dir, target_dir, root_target_dir, old_dir)
     Log.info("BACKUP COMPLETE: {} TO {}.".format(source_dir, target_dir))
     if exeptions != {}:
+        if not os.path.exists(source_dir + "/Logs/"):
+            os.mkdir(source_dir + "/Logs/")
         with open(source_dir + "/Logs/Bacup.json", 'w') as f:
             json.dump(exeptions, f)
         Log.info("BACKUP FAILEDS: {}".format(exeptions))

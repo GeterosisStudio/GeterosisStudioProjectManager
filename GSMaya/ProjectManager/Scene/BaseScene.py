@@ -1,60 +1,39 @@
 import maya.cmds as cmds
 import os
 import json
-<<<<<<< HEAD
-from GSMain import Log
+from GSMain.Config import Config
+from Settings import AssetTypes
 
 
-class MayaAsset(object):
+class BaseScene(object):
 
     def __init__(self):
-        self.asset_full_path = self.get_file_dir()
+
+        if cmds.file(q=1, sn=1):
+            if cmds.file(q=1, sn=1).split("/")[-2]=="work" and cmds.file(q=1, sn=1).split("/")[-3] in  cmds.file(q=1, sn=1, shn=1):
+                self.asset_full_path = cmds.file(q=1, sn=1).split("work/" + cmds.file(q=1, sn=1, shn=1))[0]
+            elif cmds.file(q=1, sn=1).split("/")[-2] in cmds.file(q=1, sn=1, shn=1):
+                self.asset_full_path = cmds.file(q=1, sn=1).split("work/" + cmds.file(q=1, sn=1, shn=1))[0]
+            else:
+                raise ValueError("Asset structure not corrected(asset main folder name not corected).")
+
+        else:
+            raise ValueError("Maya file not saved.")
         if os.path.isfile(os.path.join(self.asset_full_path, "AssetConfig.gsconfig")):
-            with open(os.path.join(self.asset_full_path, "AssetConfig.gsconfig")) as asset_config_file:
+            with open(os.path.join(self.asset_full_path, "AssetConfig.gsconfig"), "r") as asset_config_file:
                 self.asset_config = json.load(asset_config_file)
         else:
-            raise Log.warning("Scene incorrect: AssetConfig.gsconfig not defined.")
+            raise ValueError("Asset config not found.")
 
-        self.asset_type = self.asset_config["assettype"]
-
-        with open('../Settings/AssetTypes.gsconfig') as asset_type_config_file:
-            asset_type_config = json.load(asset_type_config_file)
-            if self.asset_type in asset_type_config:
-                self.asset_local_path = asset_type_config[self.asset_type]["path"]
-            else:
-                raise Log.warning("Asset type {} not defined.".format(self.asset_type))
-        self.project_path = self.asset_full_path.split(self.asset_local_path)[0]
+        asset_type_config = AssetTypes.get_all_types()
+        self.scene_type = self.asset_config["assettype"]
         self.asset_name = self.asset_config["assetname"]
-=======
-from GSMain.Config import Config
-
-class MayaAsset(object):
-
-    def __init__(self, project_path, asset_type, asset_name):
-
-        with open('../Settings/AssetTypes.gsconfig') as asset_type_config_file:
-            asset_type_config = json.load(asset_type_config_file)
-            if asset_type in asset_type_config:
-                self.asset_local_path = asset_type_config[asset_type]["path"]
-            else:
-                raise ("Asset type {} not defined.".format(asset_type))
-        self.project_path = project_path
-        self.asset_type = asset_type
-        self.asset_name = asset_name
-        self.asset_full_path = os.path.join(self.project_path, self.asset_local_path, self.asset_name)
-        if os.path.isfile(os.path.join(self.asset_full_path, self.asset_name + "_Config.gsconfig")):
-            with open(os.path.join(self.asset_full_path, self.asset_name + "_Config.gsconfig")) as asset_config_file:
-                self.asset_config = json.load(asset_config_file)
-        else:
-            self.create_asset_config()
-            with open(os.path.join(self.asset_full_path, self.asset_name + "_Config.gsconfig")) as asset_config_file:
-                self.asset_config = json.load(asset_config_file)
->>>>>>> master
+        self.asset_local_path = asset_type_config[self.scene_type]["path"] + self.asset_name
 
     def get_asset_root_name(self):
-        if get_root_or_work() == "root":
+        if self.get_root_or_work() == "root":
             return cmds.file(q=1, sn=1, shn=1).replace(".ma", "").replace(".mb", "")
-        if get_root_or_work() == "work":
+        if self.get_root_or_work() == "work":
             if "_v" in cmds.file(q=1, sn=1, shn=1):
                 return cmds.file(q=1, sn=1, shn=1).split("_v")[0]
             else:
@@ -115,6 +94,8 @@ class MayaAsset(object):
 
     def final_save(self):
         self.work_incremental_save()
+        if self.publish:
+            self.publish()
         scene_path = cmds.file(q=True, sceneName=True)
         path, file = os.path.split(scene_path)
         file = file.split('.')
@@ -133,13 +114,12 @@ class MayaAsset(object):
     def get_file_dir(self):
         return cmds.file(q=True, sceneName=True).split("/work")[0] + "/"
 
-    def get_asset_type(self):
-        return self.asset_type
+    def get_scene_type(self):
+        return self.scene_type
 
-<<<<<<< HEAD
     def get_asset_name(self):
         return self.asset_name
-=======
+
     def create_asset_config(self, asset_type, project_name):
         config = Config.Config()
         return config.create_asset_config(asset_name=self.get_asset_root_name(), asset_root_path=self.get_root_path(),
@@ -165,4 +145,9 @@ class MayaAsset(object):
                 return cmds.file(q=1, sn=1, shn=1).split("_v")[0]
             else:
                 return cmds.file(q=1, sn=1, shn=1).split(".")[0]
->>>>>>> master
+
+    def list_all_children(self, nodes):
+        result = set()
+        children = set(cmds.listRelatives(nodes) or [])
+
+        return list(children)

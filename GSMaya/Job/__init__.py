@@ -1,4 +1,4 @@
-"""This package contains a set of functions designed to run automatically in Unreal Engine. Rules for adding new features Each
+"""This package contains a set of functions designed to run automatically in Maya. Rules for adding new features Each
 work function must have its own module with and be named like this module because the program that does the work and
 takes parameters: program type function to execute. """
 
@@ -10,5 +10,5 @@ takes parameters: program type function to execute. """
 
 """
 Example:
-job(unreal, test(param)) - run GSUnreal.Job.test.test(param)
+job(maya, test(param)) - run GSMaya.Job.test.test(param)
 """

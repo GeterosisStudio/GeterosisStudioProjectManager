@@ -114,7 +114,7 @@ class Config:
 
         config = {"asset_name": asset_name,
                   "asset_type": asset_type,
-                  "project_name":project_name
+                  "project_name": project_name
                   }
 
         config_full_path = asset_root_path + asset_name + ".gsconfig"

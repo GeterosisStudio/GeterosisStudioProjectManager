@@ -3,10 +3,11 @@ import maya.mel as mel
 import os
 import json
 
-from MayaAsset import MayaAsset
+import AnimationBaseScene
 
 
-class AnimScene(MayaAsset):
+class AnimationScene(AnimationBaseScene.AnimationSceneBase):
+
 
     def check_scene(self):
         shots = cmds.ls(type="shot")
@@ -24,12 +25,6 @@ class AnimScene(MayaAsset):
             print("FPS NOT EQUAL 30FPS")
             check = False
         return check
-
-    def list_all_children(self, nodes):
-        result = set()
-        children = set(cmds.listRelatives(nodes) or [])
-
-        return list(children)
 
     def get_chars(self):
         chars = self.list_all_children("chars_grp")
