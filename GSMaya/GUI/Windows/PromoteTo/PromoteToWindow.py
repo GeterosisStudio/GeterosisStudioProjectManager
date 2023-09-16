@@ -1,13 +1,14 @@
 from PySide2 import QtWidgets, QtUiTools
-
+import os
 
 class PromoteToWindow(QtWidgets.QWidget):
     def __init__(self):
         super(PromoteToWindow, self).__init__()
 
         loader = QtUiTools.QUiLoader()
-        self.ui = loader.load(
-            'E:/Projects/core/GeterozisProjectManager/GeterosisProjectManager/GSMaya/GUI/Windows/PromoteTo/PromoteTo.ui')
+        relative_file_path = "/GSMaya/GUI/Windows/PromoteTo/PromoteTo.ui"
+        ui_path = os.getcwd() + relative_file_path
+        self.ui = loader.load(ui_path)
         self.ui.pushButton.clicked.connect(self.on_button_clicked)
 
     def load(self):

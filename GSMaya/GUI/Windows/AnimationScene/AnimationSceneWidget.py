@@ -1,9 +1,9 @@
 from PySide2 import QtWidgets, QtUiTools
+from pathlib import Path
 
-
-class AnimationSceneWindow(QtWidgets.QWidget):
+class AnimationSceneWidget(QtWidgets.QWidget):
     def __init__(self):
-        super(AnimationSceneWindow, self).__init__()
+        super(AnimationSceneWidget, self).__init__()
 
         loader = QtUiTools.QUiLoader()
         self.ui = loader.load(
