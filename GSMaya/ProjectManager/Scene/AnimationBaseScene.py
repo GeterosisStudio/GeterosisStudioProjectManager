@@ -5,7 +5,7 @@
 
 import BaseScene
 
-class AnimationSceneBase(BaseScene.BaseScene):
+class AnimationBaseScene(BaseScene.BaseScene):
 
 
 

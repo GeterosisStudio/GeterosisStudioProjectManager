@@ -1,22 +1,35 @@
+import Settings.Enviroment
+
 from PySide2 import QtWidgets, QtUiTools
-from pathlib import Path
+from GSMaya.ProjectManager.Scene.BaseScene import BaseScene
+from GSMain import Log
+
 
 class AnimationBaseSceneWidget(QtWidgets.QWidget):
-    def __init__(self):
+
+    def __init__(self, SCENE_CLS_OBJECT=None):
         super(AnimationBaseSceneWidget, self).__init__()
 
+        relative_file_path = "GSMaya/GUI/Widgets/AnimationBaseScene/Playblast.ui"
+        ui_path = Settings.GSPM_PATH + relative_file_path
+
         loader = QtUiTools.QUiLoader()
-        self.ui = loader.load(
-            'E:/Projects/core/GeterozisProjectManager/GeterosisProjectManager/GSMaya/GUI/Windows/AnimationScene/AnimScene2.ui')
-        self.ui.save_btn.clicked.connect(self.on_button_clicked)
-        self.ui.override_checkBox.clicked.connect(lambda: self.ui.final_checkBox.setChecked(False) if self.ui.final_checkBox.isChecked() else None)
-        self.ui.final_checkBox.clicked.connect(lambda: self.ui.override_checkBox.setChecked(False) if self.ui.override_checkBox.isChecked() else None)
-        self.ui.import_lybrary_animation_btn.clicked.connect(self.on_button_clicked)
-        self.ui.paie_btn.clicked.connect(self.on_button_clicked)
-        self.ui.walkin_bend_btn.clicked.connect(self.on_button_clicked)
+        self.ui = loader.load(ui_path)
 
-    def load(self):
-        self.ui.show()
+        if SCENE_CLS_OBJECT and issubclass(SCENE_CLS_OBJECT.__class__, BaseScene):
+            self.generate()
+        elif SCENE_CLS_OBJECT and not issubclass(SCENE_CLS_OBJECT.__class__, BaseScene):
+            print SCENE_CLS_OBJECT.__class__
+            Log.warning("class object {0} is not subclass of BaseScene class".format(SCENE_CLS_OBJECT))
+        else:
+            Log.warning("Scene class is None")
 
-    def on_button_clicked(self):
-        print("YES")
+        self.layout = QtWidgets.QVBoxLayout()
+        self.layout.addWidget(self.ui)
+        self.setLayout(self.layout)
+    def generate(self):
+        pass
+
+
+    def save_btn(self):
+        print ("qqq")

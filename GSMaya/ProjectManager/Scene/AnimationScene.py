@@ -6,7 +6,7 @@ import json
 import AnimationBaseScene
 
 
-class AnimationScene(AnimationBaseScene.AnimationSceneBase):
+class AnimationScene(AnimationBaseScene.AnimationBaseScene):
 
 
     def check_scene(self):
