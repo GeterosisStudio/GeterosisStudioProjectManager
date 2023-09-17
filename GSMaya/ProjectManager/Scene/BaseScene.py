@@ -4,7 +4,6 @@ import json
 from GSMain.Config import Config
 from Settings import AssetTypes
 
-
 class BaseScene(object):
 
     def __init__(self):
@@ -27,8 +26,10 @@ class BaseScene(object):
 
         asset_type_config = AssetTypes.get_all_types()
         self.scene_type = self.asset_config["assettype"]
-        self.asset_name = self.asset_config["assetname"]
-        self.asset_local_path = asset_type_config[self.scene_type]["path"] + self.asset_name
+        self.scene_name = self.asset_config["assetname"]
+        self.is_project = self.asset_config["project"]
+        self.asset_local_path = asset_type_config[self.scene_type]["path"] + self.scene_name
+        self.scene_version_name = cmds.file(q=1, sn=1, shn=1).split(".")[0]
 
     def get_asset_root_name(self):
         if self.get_root_or_work() == "root":
@@ -41,6 +42,9 @@ class BaseScene(object):
 
     def open_asset(self, file_path):
         cmds.file(file_path, o=True)
+
+    def save(self):
+        return cmds.file(save=1)
 
     def work_incremental_save(self, path=None):
         if not path:
@@ -117,8 +121,11 @@ class BaseScene(object):
     def get_scene_type(self):
         return self.scene_type
 
-    def get_asset_name(self):
-        return self.asset_name
+    def get_scene_name(self):
+        return self.scene_name
+
+    def get_scene_version_name(self):
+        return self.scene_version_name
 
     def create_asset_config(self, asset_type, project_name):
         config = Config.Config()

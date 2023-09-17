@@ -2,6 +2,7 @@ import os
 import json
 import hashlib
 import getpass
+import Settings.Enviroment
 
 class Config:
 
@@ -15,12 +16,14 @@ class Config:
             self.user_name = getpass.getuser()
             self.__settings_path = 'C:/Users/{}/Documents/{}'.format(self.user_name, "GeterosisProjectManager/")
         else:
-            self.__settings_path = __file__.replace("GSMain\Config.py", "default/")
+            self.__settings_path = __file__.replace("GSMain/Config.py", "default/")
         with open(self.__settings_path + "Settings/Config.json") as f:
             self.__user_config = json.load(f)
         with open(self.__settings_path + "Settings/Projects.json") as f:
             self.__projects_config = json.load(f)
         self.__settings_path = self.__settings_path.replace("\\", "/")
+
+
 
     def get_config_path(self):
         return self.__settings_path + "Settings/"

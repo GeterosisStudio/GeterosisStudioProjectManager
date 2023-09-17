@@ -65,7 +65,7 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_3">
             <item>
-             <layout class="QVBoxLayout" name="scene_area_layout" stretch="">
+             <layout class="QVBoxLayout" name="scene_area_layout">
               <property name="sizeConstraint">
                <enum>QLayout::SetDefaultConstraint</enum>
               </property>
@@ -138,11 +138,17 @@
     <property name="title">
      <string>Settings</string>
     </property>
+    <addaction name="actionGSPM_path"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuSettings"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionGSPM_path">
+   <property name="text">
+    <string>GSPM path</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
