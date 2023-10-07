@@ -54,7 +54,6 @@ def export_targets(scene_path_file):
 
             export_anm_from_scene(source_scene_path, new_char_file_name, source_char_var, source_char_ctrl, source_anim_start, source_anim_end, target_char, target_anim_start, target_anim_end, target_scene_path)
 
-
 def export_anm_from_scene(parametrs):
 
     def get_all_children_with_anim(selected_objects):
@@ -150,9 +149,6 @@ def export_anm_from_scene(parametrs):
         os.makedirs(target_scene_dir)
     cmds.file(target_scene_path, force=True, options = "v=0;", typ="mayaAscii", es=True)
 
-
-
-
 def get_source_scene_path(target_project=None, target_filename=None):
     target_scene_name = None
     if not target_project:
@@ -180,8 +176,6 @@ def get_source_scene_path(target_project=None, target_filename=None):
         "In project {0} Scene {1} not defined, this path: {2}".format(target_project_name, target_filename,
                                                                       full_target_scene_path))
 
-
-
 def positioning_animation(source_time_start, source_time_end, target_start_time, target_end_time):
     cmds.select("persp")
     source_time_start = 0
@@ -192,7 +186,6 @@ def positioning_animation(source_time_start, source_time_end, target_start_time,
 
     print(time_scale)
     cmds.scaleKey(time=(start_time, end_time), timeScale=time_scale, timePivot=start_time)
-
 
 def scene_animation_setup():
     chars_grp = "chars_grp"

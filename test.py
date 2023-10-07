@@ -1,32 +1,15 @@
 
-class ClsBase(object):
-    def __init__(self):
-        pass
+with open("E:/Projects/ILLUSION_1/animation/scenes/e0010/e0010s0030d0010v0010/e0010s0030d0010v0010.", 'r') as infile:
+    content = infile.read()
 
-class ClsOne(ClsBase):
-    def __init__(self):
-        pass
+import re
 
-class ClsTwo(ClsOne):
-    def __init__(self):
-        pass
+pattern = r"@([^%]+)%([^@%]+)"
 
-class ClsThree(ClsTwo):
-    def __init__(self):
-        pass
+matches = re.findall(pattern, content)
 
-class ClsSas(ClsOne):
-    def __init__(self):
-        pass
+pairs = [(match[0], match[1]) for match in matches]
 
 
-class ClsAssa(ClsOne):
-    def __init__(self):
-        pass
-
-qq = ClsAssa()
-
-bb = list(reversed(ClsAssa().__class__.mro()))[1:]
-
-print bb
-print issubclass(type(qq), ClsBase)
+for pair in pairs:
+    print(pair[0], pair[1])

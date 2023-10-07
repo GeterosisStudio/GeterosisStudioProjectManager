@@ -19,6 +19,7 @@ class Library:
         self.pattern = None
         self.cldr = None
         self.cldr2 = None
+
     def set_config(self):
         with open(r'F:\bufer\test.json', 'w') as f:
             self.config = json.load(f)
@@ -38,7 +39,6 @@ class Library:
             self.playblast_path = project_path + "/Playblast"
         elif os.path.isdir(project_path + "/Playblasts"):
             self.playblast_path = project_path + "/Playblasts"
-
 
     def set_resolution(self, resolution):
         if len(resolution) != 2:

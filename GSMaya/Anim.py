@@ -1,2 +1,0 @@
-from MayaAsset import MayaAsset
-
