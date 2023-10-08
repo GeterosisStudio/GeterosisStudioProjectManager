@@ -3,7 +3,6 @@ from PySide6 import QtWidgets
 from PySide6 import QtUiTools
 from Settings import Settings
 
-
 class ProjectBrowser(QtWidgets.QMainWindow):
     def __init__(self):
         super(ProjectBrowser, self).__init__()
@@ -29,7 +28,6 @@ class ProjectBrowser(QtWidgets.QMainWindow):
         name = item_dict["name"]
         proj_path = item_dict["prod_path"]
         item_text = name + "    " + proj_path
-        print(item_text)
         return QtWidgets.QListWidgetItem(item_text)
 
     def update_project_list_widget(self):
