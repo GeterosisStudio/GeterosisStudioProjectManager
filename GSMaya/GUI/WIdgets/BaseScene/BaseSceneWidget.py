@@ -10,11 +10,8 @@ class BaseSceneWidget(QtWidgets.QWidget):
     def __init__(self, SCENE_CLS_OBJECT=None):
         super(BaseSceneWidget, self).__init__()
 
-        relative_file_path = "GSMaya/GUI/Widgets/BaseScene/BaseSceneWidget.ui"
-        ui_path = Settings.GSPM_PATH + relative_file_path
-
         loader = QtUiTools.QUiLoader()
-        self.ui = loader.load(ui_path)
+        self.ui = loader.load(__file__.replace('.py', '.ui'))
         self.scene_cls_object = SCENE_CLS_OBJECT
         self.project = MayaProject()
 

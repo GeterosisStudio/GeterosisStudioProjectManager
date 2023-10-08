@@ -40,7 +40,7 @@ class MainMayaWindow(QtWidgets.QWidget):
         return scene_widget_list
 
     def load(self):
-        relative_file_path = "GSMaya/GUI/Windows/MainMayaWindow.ui"
+        relative_file_path = self.ui = QtUiTools.QUiLoader().load(__file__.replace('.py', '.ui'))
         ui_path = Settings.GSPM_PATH + relative_file_path
         loader = QtUiTools.QUiLoader()
         self.ui = loader.load(ui_path)

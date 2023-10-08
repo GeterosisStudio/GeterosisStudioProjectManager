@@ -10,16 +10,13 @@ class AnimationSceneWidget(QtWidgets.QWidget):
     def __init__(self, SCENE_CLS_OBJECT=None):
         super(AnimationSceneWidget, self).__init__()
 
-        relative_file_path = "GSMaya/GUI/Widgets/AnimationScene/AnimationSceneWidget.ui"
-        ui_path = Settings.GSPM_PATH + relative_file_path
-
         loader = QtUiTools.QUiLoader()
-        self.ui = loader.load(ui_path)
+        self.ui = loader.load(__file__.replace('.py', '.ui'))
 
         if SCENE_CLS_OBJECT and issubclass(SCENE_CLS_OBJECT.__class__, BaseScene):
             self.generate()
         elif SCENE_CLS_OBJECT and not issubclass(SCENE_CLS_OBJECT.__class__, BaseScene):
-            print SCENE_CLS_OBJECT.__class__
+            print(SCENE_CLS_OBJECT.__class__)
             Log.warning("class object {0} is not subclass of BaseScene class".format(SCENE_CLS_OBJECT))
         else:
             Log.warning("Scene class is None")
