@@ -6,17 +6,68 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>536</width>
-    <height>428</height>
+    <width>901</width>
+    <height>533</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>GSPM Project browser</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">	background-color: rgb(42, 42, 42);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="styleSheet">
+       <string notr="true">QTabWidget::pane {
+    border: 1px solid black;
+}
+
+QTabWidget::tab-bar:top {
+    top: 1px;
+}
+
+QTabWidget::tab-bar:bottom {
+    bottom: 1px;
+}
+
+QTabWidget::tab-bar:left {
+    right: 1px;
+}
+
+QTabWidget::tab-bar:right {
+    left: 1px;
+}
+
+QTabBar::tab {
+	background-color: rgb(42, 42, 42);
+	color: rgb(255, 255, 255);
+	border-radius: 2px;
+}
+
+QTabBar::tab:selected {
+	background-color: rgb(80, 80, 80);
+	color: rgb(255, 255, 255);
+	border-radius: 2px;
+}
+
+QTabBar::tab:top:!selected {
+    background-color: rgb(35, 35, 35);
+    margin-top: 3px;
+}
+
+QTabBar::tab:bottom:!selected {
+    margin-bottom: 3px;
+}
+
+QTabBar::tab:top, QTabBar::tab:bottom {
+    min-width: 8ex;
+    margin-right: -1px;
+    padding: 5px 10px 5px 10px;
+}</string>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -26,7 +77,122 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QListWidget" name="project_list_widget"/>
+         <widget class="QListWidget" name="project_list_widget">
+          <property name="sizeIncrement">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>40</pointsize>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string/>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QListWidget{
+	background-color: rgb(35, 35, 35);
+	color: rgb(255, 255, 255);
+	border-radius: 2px;
+}
+QListWidget::item{
+	background-color: rgb(42, 42, 42);
+	color: rgb(255, 255, 255);
+	border-radius: 10px;
+}
+QListWidget::item:selected {
+	background-color: rgb(80, 80, 80);
+
+}
+QListWidget::item:pressed {
+	background-color: rgb(10, 10, 10);
+
+}</string>
+          </property>
+          <property name="lineWidth">
+           <number>1</number>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustIgnored</enum>
+          </property>
+          <property name="tabKeyNavigation">
+           <bool>false</bool>
+          </property>
+          <property name="dragDropMode">
+           <enum>QAbstractItemView::NoDragDrop</enum>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>false</bool>
+          </property>
+          <property name="selectionMode">
+           <enum>QAbstractItemView::ExtendedSelection</enum>
+          </property>
+          <property name="layoutMode">
+           <enum>QListView::SinglePass</enum>
+          </property>
+          <property name="spacing">
+           <number>2</number>
+          </property>
+          <property name="currentRow">
+           <number>-1</number>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <item>
+           <property name="text">
+            <string>New Item</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>New Item</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>New Item</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>New Item</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>New Item</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>New Item</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>New Item</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>New Item</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>New Item</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>sdfss</string>
+           </property>
+          </item>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -44,7 +210,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>536</width>
+     <width>901</width>
      <height>18</height>
     </rect>
    </property>

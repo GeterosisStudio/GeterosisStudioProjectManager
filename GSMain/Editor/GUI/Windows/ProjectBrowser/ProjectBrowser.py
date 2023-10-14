@@ -10,6 +10,7 @@ class ProjectBrowser(QtWidgets.QMainWindow):
         self.setWindowTitle('GSPM Project browser')
         self.setCentralWidget(self.ui)
         self.project_item_list = []
+        self.setGeometry(100, 60, 1000, 800)
         self.load()
 
     def load(self):
