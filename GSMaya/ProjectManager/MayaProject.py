@@ -1,7 +1,8 @@
 import os
 import json
 import maya.cmds as cmds
-from Settings import AssetTypes
+from Settings.Configs import AssetTypes
+
 
 class MayaProject():
     def __init__(self):

@@ -2,7 +2,8 @@ import maya.cmds as cmds
 import os
 import json
 from GSMain.Config import Config
-from Settings import AssetTypes
+from Settings.Configs import AssetTypes
+
 
 class BaseScene(object):
 
