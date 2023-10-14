@@ -1,16 +1,18 @@
 import sys
 from PySide6.QtWidgets import QApplication
 from PySide6.QtGui import QIcon
+from GSMain.Editor.GUI.Windows.Project.Project import Project
 from GSMain.Editor.GUI.Windows.ProjectBrowser.ProjectBrowser import ProjectBrowser
 from Core import Icons
 
 
+app = QApplication()
 if len(sys.argv) >= 2:
-    q = QApplication(sys.argv[1])
+    window = Project(sys.argv[1])
 else:
-    q = QApplication()
+    window = ProjectBrowser(__file__.replace("\\", "/"))
 
-q.setWindowIcon(QIcon(Icons.get_icon_path_from_name("GSPM.ico")))
-w = ProjectBrowser()
-w.show()
-sys.exit(q.exec())
+
+app.setWindowIcon(QIcon(Icons.get_icon_path_from_name("GSPM.ico")))
+window.show()
+sys.exit(app.exec())
