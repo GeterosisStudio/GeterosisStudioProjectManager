@@ -1,12 +1,12 @@
 import sys
 import subprocess
-
+import Settings
 from PySide6 import QtWidgets
 from PySide6 import QtUiTools
 from PySide6.QtCore import Slot
 
 from Settings import Settings
-from GSMain.Editor.GUI.WIdgets.ProjectItem.ProjectItem import ProjectItem
+from GSMain.Editor.GUI.Widgets.ProjectItem.ProjectItem import ProjectItem
 
 
 class ProjectBrowser(QtWidgets.QMainWindow):
@@ -16,14 +16,13 @@ class ProjectBrowser(QtWidgets.QMainWindow):
         self.setWindowTitle('GSPM Project browser')
         self.setCentralWidget(self.ui)
         self.project_item_list = []
-        self.setGeometry(100, 60, 1000, 800)
         self.main_path = main_path
         self.load()
 
     def load(self):
         self.update_project_list_widget()
         self.ui.project_list_widget.itemDoubleClicked.connect(self.item_double_click)
-
+        self.load_window_config()
 
     def get_project_item_list(self):
         return self.project_item_list
@@ -35,7 +34,6 @@ class ProjectBrowser(QtWidgets.QMainWindow):
         proj_path = item_dict["prod_path"]
         item = QtWidgets.QListWidgetItem()
         project_item = ProjectItem(proj_path)
-        item.setData(1, proj_path)
         item.setSizeHint(project_item.sizeHint())
         self.ui.project_list_widget.addItem(item)
         self.ui.project_list_widget.setItemWidget(item, project_item)
@@ -49,8 +47,23 @@ class ProjectBrowser(QtWidgets.QMainWindow):
 
     @Slot()
     def item_double_click(self, item):
-        self.open_proj(item.data(1))
+        self.open_proj(self.ui.project_list_widget.itemWidget(item).project_path)
 
     def open_proj(self, proj_path):
         subprocess.Popen([sys.executable, self.main_path, proj_path])
         self.close()
+
+    def load_window_config(self):
+        config = Settings.load_config()
+        self.resize(config["Project browser"]["weight"], config["Project browser"]["height"])
+        self.move(config["Project browser"]["horizontal"], config["Project browser"]["vertical"])
+
+    def closeEvent(self, event):
+        config = Settings.load_config()
+        config["Project browser"]["weight"] = self.size().width()
+        config["Project browser"]["height"] = self.size().height()
+        config["Project browser"]["horizontal"] = self.pos().x()
+        config["Project browser"]["vertical"] = self.pos().y()
+        Settings.save_config(config)
+
+        event.accept()
