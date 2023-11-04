@@ -10,7 +10,7 @@ def archive_folder_winrar(folder_path, output_dir, archive_name, password):
         os.makedirs(output_dir)
 
     # get config
-    config_file = "../Settings/Config.json"
+    config_file = "../Settings/Configs/Config.json"
     with open(config_file) as f:
         config = json.load(f)
         winrar_path = config["WinRAR"]

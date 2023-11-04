@@ -47,7 +47,7 @@ class Config:
         return self.__user_config
 
     def save_user_config(self, key, value):
-        with open('../Settings/Config.json') as f:
+        with open('../Settings/Configs/Config.json') as f:
             self.__user_config[key] = value
             json.dump(self.core_config, f)
 

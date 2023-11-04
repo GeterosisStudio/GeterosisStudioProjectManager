@@ -12,6 +12,10 @@ class Project:
         self.opened_assets = {}
         self.init_proj_struct()
 
+        self.project_hash = None
+        self.project_name = None
+        self.project_path = None
+
     def load_proj_info(self):
         with open(self.proj_path + self.proj_file, "r") as inf:
             info = json.load(inf)
@@ -42,3 +46,14 @@ class Project:
 
     def add_opened_asset(self):
         pass
+
+    def set_project_hash(self, hash_str):
+        self.project_hash = hash_str
+        return True
+
+    def get_project_hash(self):
+        return self.project_hash
+
+    def set_project_name(self, name):
+        self.project_name = name
+        return True
