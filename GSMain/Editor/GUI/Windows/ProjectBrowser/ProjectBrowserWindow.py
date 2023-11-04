@@ -9,9 +9,9 @@ from Settings import Settings
 from GSMain.Editor.GUI.Widgets.ProjectItem.ProjectItem import ProjectItem
 
 
-class ProjectBrowser(QtWidgets.QMainWindow):
+class ProjectBrowserWindow(QtWidgets.QMainWindow):
     def __init__(self, main_path=None):
-        super(ProjectBrowser, self).__init__()
+        super(ProjectBrowserWindow, self).__init__()
         self.ui = QtUiTools.QUiLoader().load(__file__.replace('.py', '.ui'))
         self.setWindowTitle('GSPM Project browser')
         self.setCentralWidget(self.ui)
@@ -54,12 +54,12 @@ class ProjectBrowser(QtWidgets.QMainWindow):
         self.close()
 
     def load_window_config(self):
-        config = Settings.load_config()
+        config = Settings.get_config()
         self.resize(config["Project browser"]["weight"], config["Project browser"]["height"])
         self.move(config["Project browser"]["horizontal"], config["Project browser"]["vertical"])
 
     def closeEvent(self, event):
-        config = Settings.load_config()
+        config = Settings.get_config()
         config["Project browser"]["weight"] = self.size().width()
         config["Project browser"]["height"] = self.size().height()
         config["Project browser"]["horizontal"] = self.pos().x()
@@ -67,3 +67,4 @@ class ProjectBrowser(QtWidgets.QMainWindow):
         Settings.save_config(config)
 
         event.accept()
+
