@@ -1,1 +1,0 @@
-CreateObject("Wscript.Shell").Run "GSPM.bat",0,True
