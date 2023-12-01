@@ -1,7 +1,7 @@
 {
-    "illusion": {
-        "name": "ILLUSION",
-        "prod_path": "E:/Projects/ILLUSION_1/ILLUSION_1.gsproj",
+    "project name": {
+        "name": "NAME",
+        "prod_path": "C:/path/",
         "host": "178.255.1.1",
         "port": 11345,
         "tbot": {

@@ -1,5 +1,5 @@
 {
-    "MovementScene": {как сделать темный фон в libreoffice
+    "MovementScene": {
         "path": "animation/movement/",
         "versions": false,
         "parent": "Animation"
