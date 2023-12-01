@@ -27,3 +27,6 @@ def create_cutscene():
 
 def asset_type_manage():
     print(UE_PROJECT_PATH)
+
+def test():
+    pass
