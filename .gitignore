@@ -1,4 +1,12 @@
 .idea/
+<<<<<<< HEAD
 GSPMWindows.exe
 __pycache__/
 Core/Resource/Icons/
+=======
+__pycache__/
+*.pyc
+*.png
+Settings/Configs/
+GSPMWindows.exe
+>>>>>>> private
