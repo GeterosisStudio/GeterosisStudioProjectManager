@@ -4,8 +4,9 @@ import shutil
 import Log
 import json
 
-
 exeptions = {}
+
+
 def delete_old(source_dir, target_dir, root_target_dir, old_dir):
     dir_list = os.listdir(target_dir)
     for dir_obj in dir_list:
@@ -66,22 +67,23 @@ def copy_dirs(source_dir, target_dir):
 
 
         else:
-                if os.path.isfile(source_obj) and not os.path.exists(target_obj):
-                    Log.info("Coping: {0} to {1}".format(source_obj, target_obj))
-                    shutil.copy(source_obj, target_obj)
-                    Log.info("Copied: {0} to {1}".format(source_obj, target_obj))
+            if os.path.isfile(source_obj) and not os.path.exists(target_obj):
+                Log.info("Coping: {0} to {1}".format(source_obj, target_obj))
+                shutil.copy(source_obj, target_obj)
+                Log.info("Copied: {0} to {1}".format(source_obj, target_obj))
 
-                elif os.path.exists(target_obj):
-                    target_time = os.path.getmtime(target_obj)
-                    if source_time > target_time:
-                        try:
-                            Log.info("Coping: {0} to {1}".format(source_obj, target_obj))
-                            os.remove(target_obj)
-                            shutil.copy(source_obj, target_obj)
-                            Log.info("Copied: {0} to {1}".format(source_obj, target_obj))
-                        except:
-                            Log.warning("BACKUP FAILED: {0} to {1}".format(source_obj, target_obj))
-                            exeptions[source_obj] = (target_obj)
+            elif os.path.exists(target_obj):
+                target_time = os.path.getmtime(target_obj)
+                if source_time > target_time:
+                    try:
+                        Log.info("Coping: {0} to {1}".format(source_obj, target_obj))
+                        os.remove(target_obj)
+                        shutil.copy(source_obj, target_obj)
+                        Log.info("Copied: {0} to {1}".format(source_obj, target_obj))
+                    except:
+                        Log.warning("BACKUP FAILED: {0} to {1}".format(source_obj, target_obj))
+                        exeptions[source_obj] = (target_obj)
+
 
 def project_backup(source_dir, target_dir):
     copy_dirs(source_dir, target_dir)
@@ -93,8 +95,8 @@ def project_backup(source_dir, target_dir):
         if not os.path.exists(source_dir + "/Logs/"):
             os.mkdir(source_dir + "/Logs/")
         with open(source_dir + "/Logs/Bacup.json", 'w') as f:
-            json.dump(exeptions, f)
+            json.dump(exeptions, f, indent=4)
         Log.info("BACKUP FAILEDS: {}".format(exeptions))
 
-
-project_backup("E:/Projects", "Y:/MUSOR/Projects")
+if __name__ == "__main__":
+    project_backup("E:/Projects", "Y:/MUSOR/Projects")
