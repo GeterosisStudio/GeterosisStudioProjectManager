@@ -1,0 +1,39 @@
+{
+    "MovementScene": {как сделать темный фон в libreoffice
+        "path": "animation/movement/",
+        "versions": false,
+        "parent": "Animation"
+    }, 
+    "Map": {
+        "path": "assets/maps/",
+        "versions": true
+    }, 
+    "Set": {
+        "path": "assets/sets/",
+        "versions": true
+    }, 
+    "AnimationScene": {
+        "path": "animation/scenes/",
+        "parent": "Animation"
+        "intermediates": true
+        }
+    }, 
+    "LogicMap": {
+        "path": "logicmaps/scenes/",
+        "versions": false
+    }, 
+    "Prop": {
+        "path": "assets/props/",
+        "versions": true,
+        "parent": "Assets"
+    }, 
+    "Character": {
+        "path": "assets/chars/",
+        "versions": true,
+        "parent": "Assets"
+    },
+    "Base": {
+        "path": "",
+        "versions": true
+    }
+}

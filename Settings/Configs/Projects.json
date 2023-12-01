@@ -1,0 +1,13 @@
+{
+    "illusion": {
+        "name": "ILLUSION",
+        "prod_path": "E:/Projects/ILLUSION_1/ILLUSION_1.gsproj",
+        "host": "178.255.1.1",
+        "port": 11345,
+        "tbot": {
+            "addres": "bot_addres",
+            "user_name": "user name",
+            "pass": "hash pass"
+        }
+    }
+}

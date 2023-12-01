@@ -1,0 +1,14 @@
+{
+    "settings": {
+        "custom settings": false
+    },
+    "Project browser": {
+        "weight": 913,
+        "height": 585,
+        "vertical": 245,
+        "horizontal": 1009,
+        "fullscreen": false,
+        "host": "localhost",
+        "port": 18257
+    }
+}
