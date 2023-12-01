@@ -10,8 +10,7 @@ def assetspawn(name, translatex, translatey, translatez, rotatex, rotatey, rotat
     actor_scale = unreal.scale(scalex, scaley, scalez)
     unreal.EditorLevelLibrary.spawn_actor_from_object(actor, actor_location, actor_rotation, actor_scale)
 
-def test():
-    print("testdef")
+
 
 def import_build_list(set_list):
     print(set_list)
@@ -29,4 +28,4 @@ def asset_type_manage():
     print(UE_PROJECT_PATH)
 
 def test():
-    pass
+    print("testdef")
