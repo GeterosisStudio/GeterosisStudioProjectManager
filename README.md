@@ -1,4 +1,4 @@
-!!!The project build is outdated, expect updates!!!
+!!!Project build is outdated, expect updates!!!
 
 Cross-platform project manager and framework for animated films, TV series and games.
 
