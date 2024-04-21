@@ -5,7 +5,5 @@ Project manager and framework for animation and games.
 
 
 Libraries and frameworks:
-
-gRPC
-
-PySide6
+-gRPC
+-PySide6
