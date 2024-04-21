@@ -1,11 +1,8 @@
 import sys
 import subprocess
 import Settings
-from PySide6 import QtWidgets
-from PySide6 import QtUiTools
+from PySide6 import QtWidgets, QtUiTools
 from PySide6.QtCore import Slot, Qt
-
-from Plugins.GSMain import Log
 from Settings import Settings
 from Editor.GUI.Widgets.ProjectItem.ProjectItem import ProjectItem
 
@@ -53,11 +50,8 @@ class ProjectBrowserWindow(QtWidgets.QMainWindow):
 
     def open_proj(self, proj_path):
         # TODO fix dont opened project from execute this file
-        if proj_path:
-            subprocess.Popen([sys.executable, self.main_path, proj_path])
-            self.close()
-        else:
-            Log.warning("Project file not found.")
+        subprocess.Popen([sys.executable, self.main_path, proj_path])
+        self.close()
 
 
     def load_window_config(self):

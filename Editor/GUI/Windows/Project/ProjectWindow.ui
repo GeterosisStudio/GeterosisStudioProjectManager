@@ -6,20 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>841</width>
-    <height>558</height>
+    <width>995</width>
+    <height>603</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: rgb(42, 42, 42);
+color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QWidget" name="centra_widget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QSplitter" name="splitter">
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -32,7 +36,7 @@
          <enum>QLayout::SetDefaultConstraint</enum>
         </property>
         <item>
-         <widget class="QLineEdit" name="line_edit">
+         <widget class="QLineEdit" name="search_widget">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
@@ -45,31 +49,1003 @@
          </widget>
         </item>
         <item>
-         <widget class="QTreeWidget" name="tree_widget">
+         <widget class="QTreeWidget" name="project_tree_widget">
           <property name="maximumSize">
            <size>
             <width>16777215</width>
             <height>16777215</height>
            </size>
           </property>
-          <column>
-           <property name="text">
-            <string/>
-           </property>
-          </column>
+          <property name="font">
+           <font>
+            <pointsize>20</pointsize>
+           </font>
+          </property>
+          <property name="statusTip">
+           <string/>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QTreeWidget{
+	background-color: rgb(36, 36, 36);
+	color: rgb(255, 255, 255);
+	alternate-background-color: rgb(28, 28, 28);
+}
+QTreeWidget::item{
+	background-color: rgb(50, 50, 50);
+	color: rgb(255, 255, 255);
+	border-radius: 10px;
+	border-bottom: 10px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+QTreeWidget::item:selected {
+	background-color: rgb(80, 80, 80);
+
+}
+QTreeWidget::item:pressed {
+	background-color: rgb(10, 10, 10);
+}
+
+QTreeWidget::item::icon {
+    margin-right: 5px;
+}
+
+QTreeView::branch:closed:has-children {
+    border-image: none;
+}
+
+QTreeView::branch:open:has-children {
+    border-image: none;
+}
+
+QTreeView::branch:!has-children {
+    border-image: none;
+}</string>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustIgnored</enum>
+          </property>
+          <property name="alternatingRowColors">
+           <bool>true</bool>
+          </property>
+          <property name="verticalScrollMode">
+           <enum>QAbstractItemView::ScrollPerItem</enum>
+          </property>
+          <property name="autoExpandDelay">
+           <number>-1</number>
+          </property>
+          <property name="indentation">
+           <number>15</number>
+          </property>
+          <property name="rootIsDecorated">
+           <bool>true</bool>
+          </property>
+          <property name="uniformRowHeights">
+           <bool>false</bool>
+          </property>
+          <property name="itemsExpandable">
+           <bool>true</bool>
+          </property>
+          <property name="sortingEnabled">
+           <bool>false</bool>
+          </property>
+          <property name="animated">
+           <bool>false</bool>
+          </property>
+          <property name="headerHidden">
+           <bool>true</bool>
+          </property>
+          <attribute name="headerVisible">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="headerCascadingSectionResizes">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="headerHighlightSections">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="headerShowSortIndicator" stdset="0">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="headerStretchLastSection">
+           <bool>true</bool>
+          </attribute>
          </widget>
         </item>
        </layout>
       </widget>
-      <widget class="QTableWidget" name="table_widget">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+      <widget class="QTabWidget" name="asset_tab_widget">
+       <property name="font">
+        <font>
+         <kerning>true</kerning>
+        </font>
        </property>
+       <property name="styleSheet">
+        <string notr="true">QTabWidget{
+	background-color: rgb(36, 36, 36);
+	color: rgb(255, 255, 255);
+	alternate-background-color: rgb(28, 28, 28);
+}
+QTabWidget::pane{
+	background-color: rgb(36, 36, 36);
+	color: rgb(255, 255, 255);
+	alternate-background-color: rgb(28, 28, 28);
+}
+QTabWidget::pane:selected {
+	background-color: rgb(80, 80, 80);
+
+}
+
+
+QTabWidget::pane {
+  background: rgb(245, 245, 245);
+} 
+
+QTabBar::tab {
+	background-color: rgb(36, 36, 36);
+	color: rgb(255, 255, 255);
+	alternate-background-color: rgb(28, 28, 28);
+} 
+
+QTabBar::tab:selected { 
+	background-color: rgb(80, 80, 80); 
+}</string>
+       </property>
+       <property name="tabPosition">
+        <enum>QTabWidget::North</enum>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
+       <property name="usesScrollButtons">
+        <bool>true</bool>
+       </property>
+       <property name="documentMode">
+        <bool>false</bool>
+       </property>
+       <property name="tabsClosable">
+        <bool>true</bool>
+       </property>
+       <property name="movable">
+        <bool>true</bool>
+       </property>
+       <property name="tabBarAutoHide">
+        <bool>false</bool>
+       </property>
+       <widget class="QWidget" name="tab">
+        <attribute name="title">
+         <string>Tab 1</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QTableWidget" name="table_widget_3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QTableWidget{
+	background-color: rgb(36, 36, 36);
+	color: rgb(255, 255, 255);
+	alternate-background-color: rgb(28, 28, 28);
+}
+QTableWidget::item{
+	background-color: rgb(50, 50, 50);
+	color: rgb(255, 255, 255);
+}
+QTableWidget::item:selected {
+	background-color: rgb(80, 80, 80);
+
+}
+QTableWidget::item:pressed {
+	background-color: rgb(10, 10, 10);
+}
+
+QHeaderView::section {
+	background-color: rgb(50, 50, 50);
+	color: rgb(255, 255, 255);
+}</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="sizeAdjustPolicy">
+            <enum>QAbstractScrollArea::AdjustIgnored</enum>
+           </property>
+           <property name="dragEnabled">
+            <bool>false</bool>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="showGrid">
+            <bool>true</bool>
+           </property>
+           <property name="gridStyle">
+            <enum>Qt::SolidLine</enum>
+           </property>
+           <property name="sortingEnabled">
+            <bool>false</bool>
+           </property>
+           <attribute name="horizontalHeaderVisible">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="horizontalHeaderCascadingSectionResizes">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderHighlightSections">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>false</bool>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>ASDA</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>New Column</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>New Column</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>New Column</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>New Column</string>
+            </property>
+           </column>
+           <item row="0" column="0">
+            <property name="text">
+             <string>джл</string>
+            </property>
+           </item>
+           <item row="0" column="1">
+            <property name="text">
+             <string>ождл</string>
+            </property>
+           </item>
+           <item row="0" column="2">
+            <property name="text">
+             <string>одл</string>
+            </property>
+           </item>
+           <item row="0" column="3">
+            <property name="text">
+             <string>ждол</string>
+            </property>
+           </item>
+           <item row="9" column="0">
+            <property name="text">
+             <string>длжлжл</string>
+            </property>
+           </item>
+           <item row="9" column="1">
+            <property name="text">
+             <string>длжо</string>
+            </property>
+           </item>
+           <item row="9" column="2">
+            <property name="text">
+             <string>ж</string>
+            </property>
+           </item>
+           <item row="9" column="3">
+            <property name="text">
+             <string>лджл</string>
+            </property>
+           </item>
+           <item row="10" column="0">
+            <property name="text">
+             <string>длжо</string>
+            </property>
+           </item>
+           <item row="10" column="1">
+            <property name="text">
+             <string>дж</string>
+            </property>
+           </item>
+           <item row="10" column="2">
+            <property name="text">
+             <string>лол</string>
+            </property>
+           </item>
+           <item row="10" column="3">
+            <property name="text">
+             <string>лдж</string>
+            </property>
+           </item>
+           <item row="11" column="0">
+            <property name="text">
+             <string>ждл</string>
+            </property>
+           </item>
+           <item row="11" column="1">
+            <property name="text">
+             <string>од</string>
+            </property>
+           </item>
+           <item row="11" column="2">
+            <property name="text">
+             <string>жодл</string>
+            </property>
+           </item>
+           <item row="11" column="3">
+            <property name="text">
+             <string>жо</string>
+            </property>
+           </item>
+           <item row="12" column="0">
+            <property name="text">
+             <string>джо</string>
+            </property>
+           </item>
+           <item row="12" column="1">
+            <property name="text">
+             <string>ждлолджо</string>
+            </property>
+           </item>
+           <item row="12" column="2">
+            <property name="text">
+             <string>ждожд</string>
+            </property>
+           </item>
+           <item row="12" column="3">
+            <property name="text">
+             <string>олджо</string>
+            </property>
+           </item>
+           <item row="13" column="0">
+            <property name="text">
+             <string>джоджо</string>
+            </property>
+           </item>
+           <item row="13" column="1">
+            <property name="text">
+             <string>джо</string>
+            </property>
+           </item>
+           <item row="13" column="2">
+            <property name="text">
+             <string>ждоджлоджл</string>
+            </property>
+           </item>
+           <item row="13" column="3">
+            <property name="text">
+             <string>олджодоьлдж одлждJ</string>
+            </property>
+           </item>
+           <item row="14" column="0">
+            <property name="text">
+             <string>лджэб</string>
+            </property>
+           </item>
+           <item row="14" column="1">
+            <property name="text">
+             <string>зщбгщш</string>
+            </property>
+           </item>
+           <item row="14" column="2">
+            <property name="text">
+             <string>гоб</string>
+            </property>
+           </item>
+           <item row="14" column="3">
+            <property name="text">
+             <string>обо</string>
+            </property>
+           </item>
+           <item row="15" column="0">
+            <property name="text">
+             <string>збжго</string>
+            </property>
+           </item>
+           <item row="15" column="1">
+            <property name="text">
+             <string>зщг</string>
+            </property>
+           </item>
+           <item row="15" column="2">
+            <property name="text">
+             <string>оз</string>
+            </property>
+           </item>
+           <item row="15" column="3">
+            <property name="text">
+             <string>о</string>
+            </property>
+           </item>
+           <item row="16" column="0">
+            <property name="text">
+             <string>г</string>
+            </property>
+           </item>
+           <item row="16" column="1">
+            <property name="text">
+             <string>зо</string>
+            </property>
+           </item>
+           <item row="16" column="2">
+            <property name="text">
+             <string>зжо</string>
+            </property>
+           </item>
+           <item row="16" column="3">
+            <property name="text">
+             <string>бзо</string>
+            </property>
+           </item>
+           <item row="17" column="0">
+            <property name="text">
+             <string>зжэо</string>
+            </property>
+           </item>
+           <item row="17" column="1">
+            <property name="text">
+             <string>эо</string>
+            </property>
+           </item>
+           <item row="17" column="2">
+            <property name="text">
+             <string>щ</string>
+            </property>
+           </item>
+           <item row="17" column="3">
+            <property name="text">
+             <string>об</string>
+            </property>
+           </item>
+           <item row="18" column="0">
+            <property name="text">
+             <string>щзо</string>
+            </property>
+           </item>
+           <item row="18" column="1">
+            <property name="text">
+             <string>зэо</string>
+            </property>
+           </item>
+           <item row="18" column="2">
+            <property name="text">
+             <string>збщ</string>
+            </property>
+           </item>
+           <item row="18" column="3">
+            <property name="text">
+             <string>ощз</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="tab_2">
+        <attribute name="title">
+         <string>Tab 2</string>
+        </attribute>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QTableWidget" name="table_widget_2">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QTableWidget{
+	background-color: rgb(36, 36, 36);
+	color: rgb(255, 255, 255);
+	alternate-background-color: rgb(28, 28, 28);
+gridline-color:#242424;
+}
+QTableWidget::item{
+	background-color: rgb(50, 50, 50);
+	color: rgb(255, 255, 255);
+}
+QTableWidget::item:selected {
+	background-color: rgb(80, 80, 80);
+
+}
+QTableWidget::item:pressed {
+	background-color: rgb(10, 10, 10);
+}
+
+QHeaderView::section {
+	background-color: rgb(50, 50, 50);
+	color: rgb(255, 255, 255);
+}</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::StyledPanel</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Sunken</enum>
+           </property>
+           <property name="sizeAdjustPolicy">
+            <enum>QAbstractScrollArea::AdjustIgnored</enum>
+           </property>
+           <property name="dragEnabled">
+            <bool>false</bool>
+           </property>
+           <property name="alternatingRowColors">
+            <bool>true</bool>
+           </property>
+           <property name="showGrid">
+            <bool>true</bool>
+           </property>
+           <property name="gridStyle">
+            <enum>Qt::SolidLine</enum>
+           </property>
+           <property name="sortingEnabled">
+            <bool>false</bool>
+           </property>
+           <attribute name="horizontalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderCascadingSectionResizes">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderHighlightSections">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+            <bool>false</bool>
+           </attribute>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>false</bool>
+           </attribute>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <row>
+            <property name="text">
+             <string>New Row</string>
+            </property>
+           </row>
+           <column>
+            <property name="text">
+             <string>New Column</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>New Column</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>New Column</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>New Column</string>
+            </property>
+           </column>
+           <item row="0" column="0">
+            <property name="text">
+             <string>джл</string>
+            </property>
+           </item>
+           <item row="0" column="1">
+            <property name="text">
+             <string>ождл</string>
+            </property>
+           </item>
+           <item row="0" column="2">
+            <property name="text">
+             <string>одл</string>
+            </property>
+           </item>
+           <item row="0" column="3">
+            <property name="text">
+             <string>ждол</string>
+            </property>
+           </item>
+           <item row="9" column="0">
+            <property name="text">
+             <string>длжлжл</string>
+            </property>
+           </item>
+           <item row="9" column="1">
+            <property name="text">
+             <string>длжо</string>
+            </property>
+           </item>
+           <item row="9" column="2">
+            <property name="text">
+             <string>ж</string>
+            </property>
+           </item>
+           <item row="9" column="3">
+            <property name="text">
+             <string>лджл</string>
+            </property>
+           </item>
+           <item row="10" column="0">
+            <property name="text">
+             <string>длжо</string>
+            </property>
+           </item>
+           <item row="10" column="1">
+            <property name="text">
+             <string>дж</string>
+            </property>
+           </item>
+           <item row="10" column="2">
+            <property name="text">
+             <string>лол</string>
+            </property>
+           </item>
+           <item row="10" column="3">
+            <property name="text">
+             <string>лдж</string>
+            </property>
+           </item>
+           <item row="11" column="0">
+            <property name="text">
+             <string>ждл</string>
+            </property>
+           </item>
+           <item row="11" column="1">
+            <property name="text">
+             <string>од</string>
+            </property>
+           </item>
+           <item row="11" column="2">
+            <property name="text">
+             <string>жодл</string>
+            </property>
+           </item>
+           <item row="11" column="3">
+            <property name="text">
+             <string>жо</string>
+            </property>
+           </item>
+           <item row="12" column="0">
+            <property name="text">
+             <string>джо</string>
+            </property>
+           </item>
+           <item row="12" column="1">
+            <property name="text">
+             <string>ждлолджо</string>
+            </property>
+           </item>
+           <item row="12" column="2">
+            <property name="text">
+             <string>ждожд</string>
+            </property>
+           </item>
+           <item row="12" column="3">
+            <property name="text">
+             <string>олджо</string>
+            </property>
+           </item>
+           <item row="13" column="0">
+            <property name="text">
+             <string>джоджо</string>
+            </property>
+           </item>
+           <item row="13" column="1">
+            <property name="text">
+             <string>джо</string>
+            </property>
+           </item>
+           <item row="13" column="2">
+            <property name="text">
+             <string>ждоджлоджл</string>
+            </property>
+           </item>
+           <item row="13" column="3">
+            <property name="text">
+             <string>олджодоьлдж одлждJ</string>
+            </property>
+           </item>
+           <item row="14" column="0">
+            <property name="text">
+             <string>лджэб</string>
+            </property>
+           </item>
+           <item row="14" column="1">
+            <property name="text">
+             <string>зщбгщш</string>
+            </property>
+           </item>
+           <item row="14" column="2">
+            <property name="text">
+             <string>гоб</string>
+            </property>
+           </item>
+           <item row="14" column="3">
+            <property name="text">
+             <string>обо</string>
+            </property>
+           </item>
+           <item row="15" column="0">
+            <property name="text">
+             <string>збжго</string>
+            </property>
+           </item>
+           <item row="15" column="1">
+            <property name="text">
+             <string>зщг</string>
+            </property>
+           </item>
+           <item row="15" column="2">
+            <property name="text">
+             <string>оз</string>
+            </property>
+           </item>
+           <item row="15" column="3">
+            <property name="text">
+             <string>о</string>
+            </property>
+           </item>
+           <item row="16" column="0">
+            <property name="text">
+             <string>г</string>
+            </property>
+           </item>
+           <item row="16" column="1">
+            <property name="text">
+             <string>зо</string>
+            </property>
+           </item>
+           <item row="16" column="2">
+            <property name="text">
+             <string>зжо</string>
+            </property>
+           </item>
+           <item row="16" column="3">
+            <property name="text">
+             <string>бзо</string>
+            </property>
+           </item>
+           <item row="17" column="0">
+            <property name="text">
+             <string>зжэо</string>
+            </property>
+           </item>
+           <item row="17" column="1">
+            <property name="text">
+             <string>эо</string>
+            </property>
+           </item>
+           <item row="17" column="2">
+            <property name="text">
+             <string>щ</string>
+            </property>
+           </item>
+           <item row="17" column="3">
+            <property name="text">
+             <string>об</string>
+            </property>
+           </item>
+           <item row="18" column="0">
+            <property name="text">
+             <string>щзо</string>
+            </property>
+           </item>
+           <item row="18" column="1">
+            <property name="text">
+             <string>зэо</string>
+            </property>
+           </item>
+           <item row="18" column="2">
+            <property name="text">
+             <string>збщ</string>
+            </property>
+           </item>
+           <item row="18" column="3">
+            <property name="text">
+             <string>ощз</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
-      <widget class="QTabWidget" name="tab_widget">
+      <widget class="QTabWidget" name="asset_tab_widget_2">
        <property name="minimumSize">
         <size>
          <width>130</width>
@@ -95,7 +1071,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>841</width>
+     <width>995</width>
      <height>18</height>
     </rect>
    </property>

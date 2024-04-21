@@ -37,23 +37,21 @@ class ProjectItem(QtWidgets.QWidget):
         return False
 
     def set_project_file(self):
-        if not self.project_path: return False
         for elem in os.listdir(self.project_path):
             if elem[-7:] == self.proj_ext:
                 return elem
         return False
 
     def load_project_info(self):
-        if not self.project_file: return False
         with open(self.project_path + self.project_file, "r") as inf:
             info = json.load(inf)
         return info
 
     def load(self):
-        if self.project_info: self.ui.project_name.setText(self.project_info["name"])
-        if self.project_path and self.project_file: self.ui.project_path.setText(self.project_path + self.project_file)
+        self.ui.project_name.setText(self.project_info["name"])
+        self.ui.project_path.setText(self.project_path + self.project_file)
 
-        if self.project_info and self.project_info["image"]:
+        if self.project_info["image"]:
             self.ui.project_icon
 
             icon_label = QtWidgets.QLabel(self.ui.project_icon)
@@ -70,6 +68,6 @@ if __name__ == "__main__":
         q = QApplication(sys.argv[1])
     else:
         q = QApplication()
-    w = ProjectItem("E:/Projects/ILLUSION_1")
+    w = ProjectItem("D:/Projects/")
     w.show()
     sys.exit(q.exec())

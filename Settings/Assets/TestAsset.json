@@ -1,0 +1,13 @@
+{
+  "assettype": "TestAsset",
+  "assetname": "Default Asset",
+  "assetclass": "BaseAsset",
+  "items": {
+		"0":{
+			"0": {
+              "name": "GSMontage",
+              "itempath": "default"
+            }
+    }
+  }
+}

@@ -1,8 +1,9 @@
 .idea/
-<<<<<<< HEAD
-__pycache__/
-=======
 __pycache__/
 *.pyc
-Settings/Configs/
->>>>>>> private
+*.png
+Settings/Configs/test.json
+test2.py
+Settings/Configs/Configs.json
+bin/
+.gitignore

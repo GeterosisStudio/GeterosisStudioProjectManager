@@ -1,12 +1,13 @@
 import json
-from Plugins.GSMain import Log
+from _plugins.GSMain import Log
 from Settings import Enviroment
 
-
 PROJECT_MANAGER_PATH = Enviroment.GSPM_PATH
-def get_all_types():
+
+
+def get_asset_struct(project_path) -> object:
     try:
-        with open(PROJECT_MANAGER_PATH + 'Settings/AssetTypes.gsconfig') as asset_type_config_file:
+        with open(project_path + 'Settings/AssetTypes.gsconfig') as asset_type_config_file:
             asset_type_config = json.load(asset_type_config_file)
         return asset_type_config
     except Exception as e:

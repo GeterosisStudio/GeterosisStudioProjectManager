@@ -9,6 +9,9 @@ from Core import Icons
 
 def load():
     app = QApplication()
+    if "-debug" in sys.argv:
+        print("DEBUG MODE = 1")
+
     if len(sys.argv) > 1 and os.path.isfile(sys.argv[1]) and ".gsproj" in sys.argv[1]:
         window = ProjectWindow(sys.argv[1])
     elif len(sys.argv) > 1 and os.path.isdir(sys.argv[1]):

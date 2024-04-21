@@ -1,0 +1,9 @@
+{
+  "itemname": "GSMontage",
+  "itemclass": "BaseAssetItem",
+  "data": {
+    "itemfileext": ".prproj",
+    "versions": false,
+    "workversions": false
+  }
+}

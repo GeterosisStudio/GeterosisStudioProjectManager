@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+
+service Project {
+
+  rpc get_project_path (empty) returns (super_path) {};
+
+  rpc get_project_info (empty) returns (single_string) {};
+
+  rpc get_asset_by_path (single_string) returns (single_string)
+}
+
+message single_string{
+  string single_string = 1;
+}
+
+message empty {}
+
+message super_path {
+    string alpha_path = 1;
+}
